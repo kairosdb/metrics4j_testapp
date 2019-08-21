@@ -1,2 +1,2 @@
-# metrics4j_testapp
-Simple application for testing metrics4j
+# metrics4j Test Application
+Simple application for testing and showcasing metrics4j features
