@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 
 <metrics4j>
-	<sources>
+	<sources dump_file="output.xml">
 		<!-- defaults are declared at the root -->
 		<collector ref="Counter"/>
 		<collector ref="Timer"/>
@@ -11,19 +10,24 @@
 		<source name="org" configuration="strict"> <!-- strict requires a configuration for every collectors, no default behavior -->
 			<source name="kairosdb">
 				<source name="metrics4j_testapp">
-					<sink ref="telnet"/>
-					<!--<source name="TestStats">
+					<source name="TestStats">
+						<source name="countSomething"/>
+						<source name="timeSomething"/>
 						<source name="countSomethingWithTag">
 							<formatter ref="templateWithStatus"/>
 						</source>
-					</source>-->
+					</source>
+					<sink ref="kairos"/>
 				</source>
 			</source>
 		</source>
 	</sources>
 	<sinks>
-		<sink name="slf4j" class="org.kairosdb.metrics4j.sinks.Slf4JMetricSink" folder="" logLevel="error"/>
-		<sink name="telnet" class="org.kairosdb.metrics4j.sinks.TelnetSink" folder="plugins" host="localhost" port="4242" resolution="SECONDS"/>
+		<!--<sink name="slf4j" class="org.kairosdb.metrics4j.sinks.Slf4JMetricSink" folder="" logLevel="error"/>-->
+		<!--<sink name="telnet" class="org.kairosdb.metrics4j.sinks.TelnetSink" folder="plugins" host="localhost" port="4242" resolution="SECONDS"/>-->
+		<!--<sink name="graphite" class="org.kairosdb.metrics4j.sinks.GraphitePlaintextSink" host="localhost" port="2003" include_tags="true"/>-->
+		<!--<sink name="statsd" class="org.kairosdb.metrics4j.sinks.StatsDTCPSink" host="localhost" port="8125" protocol="UDP"/>-->
+		<sink name="kairos" class="org.kairosdb.metrics4jplugin.kairosdb.KairosSink" host_url="https://pulse-int-ingest.lab.ppops.net" />
 	</sinks>
 	<collectors>
 		<collector name="Counter" class="org.kairosdb.metrics4j.collectors.LongCounter"/>
